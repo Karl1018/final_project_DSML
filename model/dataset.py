@@ -137,3 +137,40 @@ class TransformerDataset(Dataset):
         assert len(trg_y) == target_seq_len, "Length of trg_y does not match target sequence length"
 
         return src, trg, trg_y.squeeze(-1) # change size from [batch_size, target_seq_len, num_features] to [batch_size, target_seq_len] 
+
+
+# Test the dataset class
+if __name__ == "__main__":
+    import numpy as np
+    import utils
+
+    training_data_path = "data/lorenz63_on0.05_train.npy"
+    training_data = torch.tensor(np.load(training_data_path))
+
+    # Move data to GPU
+    training_data = training_data.cuda()
+
+    print("From test: training data size = {}".format(training_data.size()))
+    SIZE = 100000
+    enc = 20
+    dec = 2
+    tar = 2
+
+    indices = utils.get_indices_entire_sequence(
+        num_obs=SIZE,
+        window_size=enc+dec,
+        step_size=1,
+        )
+    
+    print("Indices length = {}".format(len(indices)))
+    print(indices[:5])
+
+    training_dataset = TransformerDataset(
+        data=training_data,
+        indices=indices,
+        enc_seq_len=enc,
+        dec_seq_len=dec,
+        target_seq_len=tar,
+        )
+    
+    print(training_dataset[0])

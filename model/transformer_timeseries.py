@@ -42,9 +42,8 @@ class TimeSeriesTransformer(nn.Module):
 
     def __init__(self, 
         input_size: int,
-        dec_seq_len: int,
+        enc_len: int,
         batch_first: bool,
-        out_seq_len: int=58,
         dim_val: int=512,  
         n_encoder_layers: int=4,
         n_decoder_layers: int=4,
@@ -94,8 +93,6 @@ class TimeSeriesTransformer(nn.Module):
 
         super().__init__() 
 
-        self.dec_seq_len = dec_seq_len
-
         #print("input_size is: {}".format(input_size))
         #print("dim_val is: {}".format(dim_val))
 
@@ -118,7 +115,8 @@ class TimeSeriesTransformer(nn.Module):
         # Create positional encoder
         self.positional_encoding_layer = pe.PositionalEncoder(
             d_model=dim_val,
-            dropout=dropout_pos_enc
+            dropout=dropout_pos_enc,
+            batch_first=batch_first
             )
 
         # The encoder layer used in the paper is identical to the one used by

@@ -7,7 +7,7 @@ import pandas as pd
 from pathlib import Path
 
 
-def generate_square_subsequent_mask(dim1: int, dim2: int) -> Tensor:
+def generate_square_subsequent_mask(dim1: int, dim2: int, device='cpu') -> Tensor:
     """
     Generates an upper-triangular matrix of -inf, with zeros on diag.
     Modified from: 
@@ -27,7 +27,7 @@ def generate_square_subsequent_mask(dim1: int, dim2: int) -> Tensor:
 
         A Tensor of shape [dim1, dim2]
     """
-    return torch.triu(torch.ones(dim1, dim2) * float('-inf'), diagonal=1)
+    return torch.triu(torch.ones(dim1, dim2) * float('-inf'), diagonal=1) if device == 'cpu' else torch.triu(torch.ones(dim1, dim2) * float('-inf'), diagonal=1).to(device)
 
 
 def get_indices_input_target(num_obs, input_len, step_size, forecast_horizon, target_len):
@@ -82,7 +82,7 @@ def get_indices_input_target(num_obs, input_len, step_size, forecast_horizon, ta
 
         return indices
 
-def get_indices_entire_sequence(data: pd.DataFrame, window_size: int, step_size: int) -> list:
+def get_indices_entire_sequence(num_obs: int, window_size: int, step_size: int) -> list:
         """
         Produce all the start and end index positions that is needed to produce
         the sub-sequences. 
@@ -112,7 +112,7 @@ def get_indices_entire_sequence(data: pd.DataFrame, window_size: int, step_size:
             indices: a list of tuples
         """
 
-        stop_position = len(data)-1 # 1- because of 0 indexing
+        stop_position = num_obs - 1 # 1- because of 0 indexing
         
         # Start the first sub-sequence at index position 0
         subseq_first_idx = 0
