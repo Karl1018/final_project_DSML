@@ -1,0 +1,5 @@
+INFO:Logger:{'enc_len': 15, 'dec_len': 3, 'tar_len': 3, 'random_seed': None, 'rounds': 1}
+INFO:Logger:
+
+INFO:Logger:Round 1
+INFO:Logger:Power spectrum density error: 0.1884116232395172

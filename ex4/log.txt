@@ -1,0 +1,3 @@
+INFO:__main__:{'enc_len': 10, 'dec_len': 3, 'tar_len': 3, 'random_seed': 48}
+INFO:__main__:Early stopping at epoch 17 with best loss = 0.0027962558320723473
+INFO:__main__:Power spectrum density error: 0.31705498695373535

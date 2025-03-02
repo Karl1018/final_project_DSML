@@ -1,0 +1,2 @@
+INFO:__main__:{'enc_len': 20, 'dec_len': 2, 'tar_len': 2, 'random_seed': 48}
+INFO:__main__:Power spectrum density error: 0.6698960661888123

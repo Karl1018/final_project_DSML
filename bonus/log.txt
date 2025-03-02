@@ -1,0 +1,101 @@
+INFO:Logger:{'enc_len': 15, 'dec_len': 3, 'tar_len': 3, 'random_seed': None, 'rounds': 20}
+INFO:Logger:
+
+INFO:Logger:Round 1
+INFO:Logger:Early stopping at epoch 11 with best loss = 0.0028433853236492722
+INFO:Logger:Power spectrum density error: 0.4770911931991577
+INFO:Logger:
+
+INFO:Logger:Round 2
+INFO:Logger:Early stopping at epoch 7 with best loss = 0.0027541983523406087
+INFO:Logger:Power spectrum density error: 0.46359682083129883
+INFO:Logger:
+
+INFO:Logger:Round 3
+INFO:Logger:Early stopping at epoch 6 with best loss = 0.0028854625998064876
+INFO:Logger:Power spectrum density error: 0.8082615733146667
+INFO:Logger:
+
+INFO:Logger:Round 4
+INFO:Logger:Early stopping at epoch 11 with best loss = 0.0028546871501021085
+INFO:Logger:Power spectrum density error: 0.36273419857025146
+INFO:Logger:
+
+INFO:Logger:Round 5
+INFO:Logger:Early stopping at epoch 12 with best loss = 0.002767084032529965
+INFO:Logger:Power spectrum density error: 0.2744031846523285
+INFO:Logger:
+
+INFO:Logger:Round 6
+INFO:Logger:Early stopping at epoch 6 with best loss = 0.0028361498669255527
+INFO:Logger:Power spectrum density error: 0.2961660325527191
+INFO:Logger:
+
+INFO:Logger:Round 7
+INFO:Logger:Early stopping at epoch 6 with best loss = 0.0027710204594768584
+INFO:Logger:Power spectrum density error: 0.28049808740615845
+INFO:Logger:
+
+INFO:Logger:Round 8
+INFO:Logger:Early stopping at epoch 9 with best loss = 0.0027245348144788297
+INFO:Logger:Power spectrum density error: 0.2642871141433716
+INFO:Logger:
+
+INFO:Logger:Round 9
+INFO:Logger:Early stopping at epoch 15 with best loss = 0.0027444079052656887
+INFO:Logger:Power spectrum density error: 0.2761082947254181
+INFO:Logger:
+
+INFO:Logger:Round 10
+INFO:Logger:Early stopping at epoch 9 with best loss = 0.0026986893673893063
+INFO:Logger:Power spectrum density error: 0.30922672152519226
+INFO:Logger:
+
+INFO:Logger:Round 11
+INFO:Logger:Early stopping at epoch 14 with best loss = 0.002721693064086139
+INFO:Logger:Power spectrum density error: 0.2862199544906616
+INFO:Logger:
+
+INFO:Logger:Round 12
+INFO:Logger:Early stopping at epoch 8 with best loss = 0.002676983491983265
+INFO:Logger:Power spectrum density error: 0.32130327820777893
+INFO:Logger:
+
+INFO:Logger:Round 13
+INFO:Logger:Early stopping at epoch 7 with best loss = 0.002683049679035321
+INFO:Logger:Power spectrum density error: 0.2712538242340088
+INFO:Logger:
+
+INFO:Logger:Round 14
+INFO:Logger:Early stopping at epoch 6 with best loss = 0.0027035133854951708
+INFO:Logger:Power spectrum density error: 0.26360929012298584
+INFO:Logger:
+
+INFO:Logger:Round 15
+INFO:Logger:Early stopping at epoch 7 with best loss = 0.0027075143880210817
+INFO:Logger:Power spectrum density error: 0.2648329436779022
+INFO:Logger:
+
+INFO:Logger:Round 16
+INFO:Logger:Early stopping at epoch 9 with best loss = 0.002705577661981806
+INFO:Logger:Power spectrum density error: 0.28680360317230225
+INFO:Logger:
+
+INFO:Logger:Round 17
+INFO:Logger:Early stopping at epoch 8 with best loss = 0.0026692914951127024
+INFO:Logger:Power spectrum density error: 0.25886890292167664
+INFO:Logger:
+
+INFO:Logger:Round 18
+INFO:Logger:Early stopping at epoch 7 with best loss = 0.00267588502028957
+INFO:Logger:Power spectrum density error: 0.3124314546585083
+INFO:Logger:
+
+INFO:Logger:Round 19
+INFO:Logger:Early stopping at epoch 6 with best loss = 0.0027531414874829353
+INFO:Logger:Power spectrum density error: 0.29632893204689026
+INFO:Logger:
+
+INFO:Logger:Round 20
+INFO:Logger:Early stopping at epoch 11 with best loss = 0.0027643651992548257
+INFO:Logger:Power spectrum density error: 0.3005731403827667
