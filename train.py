@@ -194,8 +194,9 @@ def test(model, enc_len, tar_len, test_data, device, save_path, forecast_window=
         forecast_window = len(test_data) - enc_len
 
     with torch.no_grad():
-        trajectory = inference.T_step_prediction(
+        trajectory = inference.T_step_forecast(
             model=model,
+            enc_len=enc_len,
             dec_len=tar_len,
             initial_enc_input=test_data[:enc_len, :].unsqueeze(0).to(device),
             initial_dec_input=test_data[enc_len-1, :].unsqueeze(0).unsqueeze(0).to(device),
@@ -244,7 +245,6 @@ def save_trajectory(trajectory):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     ax.plot(x, y, z)
-    # ax.plot(x_hat, y_hat, z_hat, marker='x', color='r')
 
     ax.set_xlabel('X')
     ax.set_ylabel('Y')
@@ -256,7 +256,7 @@ def save_trajectory(trajectory):
 if __name__ == "__main__":
     # Arguments processing
     parser = argparse.ArgumentParser(description="Train model")
-    parser.add_argument("--epochs", type=int, help="Number of epochs", default=30)
+    parser.add_argument("--epochs", type=int, help="Number of epochs", default=40)
     parser.add_argument("--enc", type=int, default=15)
     parser.add_argument("--dec", type=int, default=3)
     parser.add_argument("--tar", type=int, default=3)
@@ -265,8 +265,8 @@ if __name__ == "__main__":
     parser.add_argument("--random_seed", type=int, default=None)
     parser.add_argument("--device", type=str, default="cuda")
     parser.add_argument("--save_plot", action="store_true", default=True)
-    parser.add_argument("--rounds", type=int, default=20)
-    parser.add_argument("--save_path", type=str, default="bonus/")
+    parser.add_argument("--rounds", type=int, default=1)
+    parser.add_argument("--save_path", type=str, default="96/")
     parser.add_argument("--test", action="store_true", default=False)
     parser.add_argument("--debug", action="store_true", default=False)
     args = parser.parse_args()
@@ -289,10 +289,10 @@ if __name__ == "__main__":
         batch_size = 1
 
     model = TimeSeriesTransformer(
-        input_size=3,
+        input_size=20,
         enc_len=args.enc,
         batch_first=True,
-        num_predicted_features=3,
+        num_predicted_features=20,
         dropout_encoder=0.2,
         dropout_decoder=0.2
         )
@@ -304,7 +304,7 @@ if __name__ == "__main__":
         batch_size = args.batch_size
 
         # Data
-        training_data_path = "data/lorenz63_on0.05_train.npy"
+        training_data_path = "data/lorenz96_on0.05_train.npy"
 
         training_data = torch.tensor(np.load(training_data_path))
         SIZE = training_data.shape[0]
@@ -370,6 +370,9 @@ if __name__ == "__main__":
             save_path = args.save_path + f"round_{i + 1}/"
             if not os.path.exists(save_path):
                 os.makedirs(save_path)
+        else:
+            save_path = args.save_path
+
         if not args.test:
             # Training
             training_loop(
@@ -390,7 +393,7 @@ if __name__ == "__main__":
 
         # Testing
         print("Testing...")
-        test_data_path = "data/lorenz63_test.npy"
+        test_data_path = "data/lorenz96_test.npy"
         test_data = torch.tensor(np.load(test_data_path), device=args.device)
 
         test(

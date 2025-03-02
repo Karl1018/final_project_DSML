@@ -9,8 +9,8 @@ from tqdm import tqdm
 
 import model.utils as utils
 
-def T_step_prediction(
-    model: nn.Module, dec_len: int, initial_enc_input: torch.Tensor, initial_dec_input: torch.Tensor, T: int, device
+def T_step_forecast(
+    model: nn.Module, enc_len: int, dec_len: int, initial_enc_input: torch.Tensor, initial_dec_input: torch.Tensor, T: int, device
 ) -> torch.Tensor:
     """
     Generate a trajectory using autoregressive decoding.
@@ -45,9 +45,9 @@ def T_step_prediction(
         if dec_input.shape[1] > dec_len:
             dec_input = dec_input[:, -dec_len:, :]
             dim_a = dec_len
-        # if enc_input.shape[1] > 20:
-        #     # enc_input = enc_input[:, -20:, :]
-        #     dim_b = 20
+        if enc_input.shape[1] > enc_len:
+            enc_input = enc_input[:, -enc_len:, :]
+            dim_b = enc_len
 
         # print("dim_a: {}, dim_b: {}".format(dim_a, dim_b))
         # print("enc_input shape: {}, dec_input shape: {}".format(enc_input.shape, dec_input.shape))
@@ -70,45 +70,8 @@ def T_step_prediction(
         if len(pred.shape) < 3:
             pred = pred.unsqueeze(0)
             
-        enc_input = torch.cat((enc_input[:, 1:, :], pred), dim=1)
+        enc_input = torch.cat((enc_input, pred), dim=1)
         dec_input = torch.cat((dec_input, pred), dim=1)
         traj = torch.cat((traj, pred), dim=1)
 
     return traj[:, 1:, :]  # Remove initial condition
-
-def generate_forecast(model, encoder_input, prediction_length):
-    """
-    Generate a future trajectory using autoregressive decoding.
-
-    Args:
-        model: Trained transformer model
-        encoder_input: Tensor of shape (batch_size, encoder_seq_len, input_dim)
-        prediction_length: Number of future steps to predict
-
-    Returns:
-        Tensor of shape (batch_size, prediction_length, output_dim)
-    """
-    model.eval()
-    with torch.no_grad():
-        batch_size = encoder_input.shape[0]
-
-        # Encode the input sequence
-        encoder_output = model.encode(encoder_input)
-
-        # Initialize decoder input (e.g., zeros, last known value, or start token)
-        decoder_input = torch.zeros(batch_size, 1, encoder_input.shape[-1]).to(encoder_input.device)
-
-        predictions = []
-
-        for _ in range(prediction_length):
-            # Decode the next step
-            output = model.decode(encoder_output, decoder_input)
-
-            # Take the last predicted time step
-            next_step = output[:, -1:, :]  # Shape: (batch_size, 1, output_dim)
-            predictions.append(next_step)
-
-            # Append predicted value to decoder input for the next step
-            decoder_input = torch.cat([decoder_input, next_step], dim=1)
-
-        return torch.cat(predictions, dim=1)  # Shape: (batch_size, prediction_length, output_dim)
