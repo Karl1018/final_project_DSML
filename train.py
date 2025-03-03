@@ -173,7 +173,10 @@ def training_loop(model, src_mask, tgt_mask, epochs, optimizer, criterion,traini
             print(f"Early stopping at epoch {epoch + 1} with best loss = {best_loss}")
             LOGGER.info(f"Early stopping at epoch {epoch + 1} with best loss = {best_loss}")
             break
-
+    if not stop:
+        print("Final loss: ", val_loss)
+        LOGGER.info(f"Final loss: {val_loss}")
+        
     torch.save(best_model, save_path + "best_model.pth")
 
 def test(model, enc_len, tar_len, test_data, device, save_path, forecast_window=None, save_plot=True):
@@ -244,7 +247,7 @@ def save_trajectory(trajectory):
 
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
-    ax.plot(x, y, z)
+    ax.plot(x, y, z, linewidth=0.1)
 
     ax.set_xlabel('X')
     ax.set_ylabel('Y')

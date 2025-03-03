@@ -15,7 +15,7 @@ model = TimeSeriesTransformer(
     )
 
 # Load model weights
-model.load_state_dict(torch.load("ex4/best_model.pth"))
+model.load_state_dict(torch.load("ex5/best_model.pth"))
 
 # Inference
 model.eval()
@@ -39,6 +39,9 @@ trajectory = T_step_forecast(
     T=len(test_data),
     device=device
     )
+
+# Save the trajectory
+np.save("random_initial_condition/trajectory.npy", trajectory.squeeze(0).cpu().detach().numpy())
 
 # PSD
 psd_error, spectrum_true, spectrum_gen  = power_spectrum_error(trajectory, test_data.unsqueeze(0))

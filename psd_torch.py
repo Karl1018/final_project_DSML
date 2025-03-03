@@ -5,7 +5,7 @@ import numpy as np
 from scipy.ndimage import gaussian_filter1d
 from matplotlib import pyplot as plt
 
-SMOOTHING_SIGMA = 20
+SMOOTHING_SIGMA = 5
 
 # Compute power spectra distances and average across all dimensions
 def power_spectrum_error(x_gen, x_true):
